@@ -1,12 +1,20 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8" />
+<head th:replace="fragments/head :: head">
+
 </head>
 <body>
 
-<footer th:replace="fragments/footer :: footer">
+    <header th:replace="fragments/navbar :: navbar"></header>
 
-</footer>
+    <div class="blog-header">
+        <div class="container">
+            <h1 class="blog-title">The Bootstrap Blog</h1>
+            <p class="lead blog-description">An example blog template built with Bootstrap.</p>
+        </div>
+    </div>
+
+    <footer th:replace="fragments/footer :: footer"></footer>
+
 </body>
 </html>
