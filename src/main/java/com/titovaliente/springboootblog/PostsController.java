@@ -1,36 +1,49 @@
 package com.titovaliente.springboootblog;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @Controller
 public class PostsController {
+    @RequestMapping("/posts")
+    public String index(Model viewAndModel) {
+        List<Post> posts = Arrays.asList(
+                new Post("Post A", "Body A"),
+                new Post("Post B", "Body B"),
+                new Post("Post C", "Body C")
+        );
 
-    @GetMapping("/posts")
-    @ResponseBody
-    public String postsIndex() {
-        return "posts index page";
+        viewAndModel.addAttribute("posts", posts);
+
+        return "posts/index";
     }
 
-    @GetMapping("/posts/{id}")
-    @ResponseBody
-    public String postsId(@PathVariable int id) {
-        return "view an individual post " + id;
+    @RequestMapping("/posts/{id}")
+    public String show(@PathVariable long id, Model viewAndModel) {
+        Post post = new Post("Test post", "Test body");
+
+        viewAndModel.addAttribute("post", post);
+
+        return "posts/show";
     }
 
-    @GetMapping("/posts/create")
+    @RequestMapping("/posts/create")
     @ResponseBody
-    public String create() {
-        return "view the form for creating a post";
+    public String showCreateForm() {
+        return "The form to create a post";
     }
 
     @PostMapping("/posts/create")
     @ResponseBody
-    public String createPost(){
-        return "create a new post";
+    public String createPost() {
+        return "Store a post in the database";
     }
-
 }
